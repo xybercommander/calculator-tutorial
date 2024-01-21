@@ -13,6 +13,66 @@ class CalculatorPage extends StatefulWidget {
 class _CalculatorPageState extends State<CalculatorPage> {
   TextEditingController _numberController = TextEditingController();
 
+  double op1 = 0;
+  double op2 = 0;
+  String operator = "";
+
+  void buttonPressed(String buttonText) {
+    switch(buttonText) {
+      case "C":
+        setState(() {
+          _numberController.text = "";
+          operator = "";
+          op1 = 0;
+          op2 = 0;
+        }); 
+      case "+":
+        setState(() {
+          op1 = double.parse(_numberController.text);
+          _numberController.text = "";
+          operator = "+";
+        });
+      case "-":
+        setState(() {
+          op1 = double.parse(_numberController.text);
+          _numberController.text = "";
+          operator = "-";
+        });
+      case "X":
+        setState(() {
+          op1 = double.parse(_numberController.text);
+          _numberController.text = "";
+          operator = "*";
+        });
+      case "/":
+        setState(() {
+          op1 = double.parse(_numberController.text);
+          _numberController.text = "";
+          operator = "/";
+        });
+      case "=":
+        setState(() {
+          op2 = double.parse(_numberController.text);
+        });
+        if(operator == "+") {
+          double output = op1 + op2;
+          _numberController.text = output.toString();
+        } else if(operator == "-") {
+          double output = op1 - op2;
+          _numberController.text = output.toString();
+        } else if(operator == "*") {
+          double output = op1 * op2;
+          _numberController.text = output.toString();
+        } else if(operator == "/") {
+          double output = op1 / op2;
+          _numberController.text = output.toString();
+        }
+        op1 = 0;
+        op2 = 0;
+        operator = "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +99,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("C");
+                  }, 
                   buttonText: "C", 
                   buttonColor: Colors.grey, 
                   textColor: Colors.black
@@ -57,7 +119,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   textColor: Colors.black
                 ),
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("/");
+                  }, 
                   buttonText: "/", 
                   buttonColor: Colors.amber, 
                   textColor: Colors.white
@@ -93,7 +157,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   textColor: Colors.white
                 ),
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("X");
+                  }, 
                   buttonText: "X", 
                   buttonColor: Colors.amber, 
                   textColor: Colors.white
@@ -129,7 +195,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   textColor: Colors.white
                 ),
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("-");
+                  }, 
                   buttonText: "-", 
                   buttonColor: Colors.amber, 
                   textColor: Colors.white
@@ -165,7 +233,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   textColor: Colors.white
                 ),
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("+");
+                  }, 
                   buttonText: "+", 
                   buttonColor: Colors.amber, 
                   textColor: Colors.white
@@ -202,7 +272,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   textColor: Colors.white
                 ),
                 CalculatorButton(
-                  onpressedFuntion: () {}, 
+                  onpressedFuntion: () {
+                    buttonPressed("=");
+                  }, 
                   buttonText: "=", 
                   buttonColor: Colors.amber, 
                   textColor: Colors.white
@@ -215,3 +287,5 @@ class _CalculatorPageState extends State<CalculatorPage> {
     );
   }
 }
+
+
